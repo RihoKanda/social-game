@@ -2,4 +2,23 @@ version: '3.8'
 
 services:
   mysql:
-    image: imageName
+    image: mysql:8.0
+    container_name: social-game-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootPASS
+      MYSQL_DATABASE: social_game
+      MYSQL_USER: app
+      MYSQL_PASSWORD: apppass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost","-uroot","-pootpass"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  mysql_data:
