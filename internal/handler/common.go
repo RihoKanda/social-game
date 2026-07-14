@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"strings"
 
-	"social-game/internal/repository"
+	"github.com/RihoKanda/social-Game/internal/repository"
 )
 
 type ctxKey string
@@ -42,7 +42,7 @@ func AuthMiddleware(repo *repository.UserRepository) func(http.Handler) http.Han
 			}
 			token := strings.TrimPrefix(authHeader, "Bearer ")
 
-			userID, err := repo.FindUserIDByToken(r.Context(), token)
+			userID, err := repo.FinduserIDByToken(r.Context(), token)
 			if err != nil {
 				writeError(w, http.StatusUnauthorized, "invalid or expired token")
 				return
