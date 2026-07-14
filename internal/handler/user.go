@@ -7,11 +7,8 @@ import (
 	"net/http"
 	"time"
 
-	//"social-game/internal/repository"
-	//"social-game/internal/service"
-
-	"github.com/RihoKanda/social-Game/internal/repository"
-	"github.com/RihoKanda/social-Game/internal/service"
+	"social-Game/internal/repository"
+	"social-Game/internal/service"
 )
 
 type UserHandler struct {
@@ -84,7 +81,7 @@ func (h *UserHandler) Claim(w http.ResponseWriter, r *http.Request) {
 	}
 
 	now := time.Now()
-	gained := service.CalcIdleGain(user.LastClaimAt, res.ProductionRate, now)
+	gained := service.CalcIdleGain(user.LastClaimedAt, res.ProductionRate, now)
 
 	if gained > 0 {
 		if err := h.Repo.ClaimIdleCoins(ctx, userID, gained, now); err != nil {
