@@ -8,5 +8,12 @@ CREATE TABLE IF NOT EXISTS users (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 認証トークン
+CREATE TABLE IF NOT EXISTS auth_tokens (
+    token VARCHAR(64) PRIMARY KEY,
+    user_id BIGINT UNSIGNED NOT NULL,
+    expires_at DATETIME NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    INDEX index_user_id (user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ユーザーの資源
