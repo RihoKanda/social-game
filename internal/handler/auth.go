@@ -11,8 +11,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/RihoKanda/social-Game/internal/repository"
-	"github.com/RihoKanda/social-Game/internal/service"
+	"social-Game/internal/repository"
+	"social-Game/internal/service"
 )
 
 type AuthHandler struct {
