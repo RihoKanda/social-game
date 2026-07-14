@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/RihoKanda/social-Game/internal/repository"
+	"social-Game/internal/repository"
 )
 
 type ctxKey string
