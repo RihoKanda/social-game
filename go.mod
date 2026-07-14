@@ -1,4 +1,4 @@
-module github.com/RihoKanda/social-Game
+module social-Game
 
 go 1.25.7
 
