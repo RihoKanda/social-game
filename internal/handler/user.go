@@ -7,11 +7,11 @@ import (
 	"net/http"
 	"time"
 
-	"social-game/internal/repository"
-	"social-game/internal/service"
+	//"social-game/internal/repository"
+	//"social-game/internal/service"
 
-	//"github.com/RihoKanda/social-Game/internal/repository"
-	//"github.com/RihoKanda/social-Game/internal/service"
+	"github.com/RihoKanda/social-Game/internal/repository"
+	"github.com/RihoKanda/social-Game/internal/service"
 )
 
 type UserHandler struct {
@@ -62,4 +62,40 @@ func (h *UserHandler) State(w http.ResponseWriter, r *http.Request) {
 type claimResponse struct {
 	Gained  int64  `json:"gained"`
 	NewCoin uint64 `json:"new_coin"`
+}
+
+// Claim: 放置分確定　coinに加算　毎呼last_claimed_atをリセット
+func (h *UserHandler) Claim(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	userID := userIDFromContext(ctx)
+
+	user, err := h.Repo.FindByID(ctx, userID)
+	if err != nil {
+		log.Printf("failed to find user: %v", err)
+		writeError(w, http.StatusInternalServerError, "failed to find user")
+		return
+	}
+
+	res, err := h.Repo.GetResource(ctx, userID)
+	if err != nil {
+		log.Printf("failed to get resource: %v", err)
+		writeError(w, http.StatusInternalServerError, "failed to gat resource")
+		return
+	}
+
+	now := time.Now()
+	gained := service.CalcIdleGain(user.LastClaimAt, res.ProductionRate, now)
+
+	if gained > 0 {
+		if err := h.Repo.ClaimIdleCoins(ctx, userID, gained, now); err != nil {
+			log.Printf("failed to claim coins: %v", err)
+			writeError(w, http.StatusInternalServerError, "failed to claim coins")
+			return
+		}
+	}
+
+	writeJSON(w, http.StatusOK, claimResponse{
+		Gained:  gained,
+		NewCoin: res.Coin + uint64(gained),
+	})
 }
