@@ -47,7 +47,7 @@ func main() {
 	mux.Handle("GET /user/state", auth(http.HandlerFunc(userHandler.State)))
 	mux.Handle("POST /user/claim", auth(http.HandlerFunc(userHandler.Claim)))
 
-	mux.HandleFunc("GET healthz", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		_, _ = w.Write([]byte("OK"))
 	})
