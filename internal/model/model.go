@@ -22,3 +22,15 @@ type AuthToken struct {
 	UserID    uint64
 	ExpiresAt time.Time
 }
+
+type Character struct {
+	ID   uint16
+	Name string
+}
+
+type UserCharacter struct {
+	UserID      uint64
+	CharacterID uint16
+	Count       uint32
+	ObtainedAt  time.Time
+}
