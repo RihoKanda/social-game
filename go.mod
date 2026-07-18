@@ -1,4 +1,4 @@
-module social-Game
+module social-game
 
 go 1.25.7
 
