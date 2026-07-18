@@ -10,9 +10,9 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 
-	"social-Game/internal/repository"
+	"social-game/internal/repository"
 
-	"social-Game/internal/handler"
+	"social-game/internal/handler"
 )
 
 func main() {

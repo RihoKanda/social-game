@@ -4,7 +4,8 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-	"social-Game/internal/model"
+	
+	"social-game/internal/model"
 )
 
 var ErrNotEnoughCoin = errors.New("not enough coin")

@@ -6,7 +6,7 @@ import (
 	"database/sql"
 	"time"
 
-	"social-Game/internal/model"
+	"social-game/internal/model"
 )
 
 type UserRepository struct {

@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"time"
 
-	"social-Game/internal/repository"
-	"social-Game/internal/service"
+	"social-game/internal/repository"
+	"social-game/internal/service"
 )
 
 type UserHandler struct {
